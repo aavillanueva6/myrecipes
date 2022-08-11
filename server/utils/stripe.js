@@ -15,10 +15,10 @@ async function createSession(req) {
   });
 
   process.env.NODE_ENV === "production"
-    ? (cancelUrl = "https://abps-myrecipes.herokuapp.com/")
+    ? (cancelUrl = "https://myrecipestest-aav.herokuapp.com/")
     : (cancelUrl = "http://localhost:3000/");
   process.env.NODE_ENV === "production"
-    ? (successUrl = "https://abps-myrecipes.herokuapp.com/success")
+    ? (successUrl = "https://myrecipestest-aav.herokuapp.com/success")
     : (successUrl = "http://localhost:3000/success");
 
   const session = await stripe.checkout.sessions.create({
