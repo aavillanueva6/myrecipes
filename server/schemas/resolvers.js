@@ -34,7 +34,9 @@ const resolvers = {
     },
 
     allRecipes: async () => {
-      return await Recipe.find().populate("creator").populate("tags");
+      const data = await Recipe.find().populate("creator").populate("tags");
+      console.log(data);
+      return data;
     },
     tags: async () => {
       return await Tag.find();
