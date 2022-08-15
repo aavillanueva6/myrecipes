@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { useMutation } from "@apollo/client";
 import { FILE_UPLOAD_URL } from "../../utils/mutations";
 
-const ImageUpload = ({ s3ImgURL, setS3ImgURL }) => {
+function ImageUpload({getUrlFromS3}) {
   const inputRef = useRef();
   const [fileUploadURL, { error }] = useMutation(FILE_UPLOAD_URL);
   const [uploadedImg, setUploadedImg] = useState([]);
@@ -28,25 +28,25 @@ const ImageUpload = ({ s3ImgURL, setS3ImgURL }) => {
 
         // Store imageUrl from AWS S3 ( to put imageUrl lists to product model )
         imageUrl.push(data.fileUploadURL.signedUrl.split("?")[0]);
-        console.log(imageUrl);
+        await getUrlFromS3(imageUrl[0])
       } catch (err) {
         console.error(err);
       }
     }
-    setS3ImgURL([...s3ImgURL, ...imageUrl]);
-    setUploadedImg([...uploadedImg, ...fileUploaded]);
+    // setS3ImgURL([...s3ImgURL, ...imageUrl]);
+    // setUploadedImg([...uploadedImg, ...fileUploaded]);
   };
 
   return (
     <div>
       <input
+        style={{color: "white"}}
         ref={inputRef}
         type="file"
         accept="image/gif, image/jpeg, image/png"
         multiple
         onChange={handleChange}
       />
-      <img src="https://myrecipesbucket-abps.s3.us-west-2.amazonaws.com/567d2004-e911-4969-ae8e-f8d1351f773c-1660181133300" />
     </div>
   );
 };
