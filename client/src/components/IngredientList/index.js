@@ -1,17 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
-import "antd/dist/antd.css";
+import React, { useEffect, useRef, useState } from 'react';
+import 'antd/dist/reset.css';
 // import "./index.css";
-import { PlusOutlined } from "@ant-design/icons";
-import { Tag as List } from "antd";
-import { Input, Tooltip } from "antd";
+import { PlusOutlined } from '@ant-design/icons';
+import { Tag as List } from 'antd';
+import { Input, Tooltip } from 'antd';
 
 //logic for antdesign "tag" aka "list" for ingredients
 const IngredientList = () => {
-  const [ingredientItem, setIngredientItem] = useState([""]);
+  const [ingredientItem, setIngredientItem] = useState(['']);
   const [inputVisible, setInputVisible] = useState(false);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
   const [editInputIndex, setEditInputIndex] = useState(-1);
-  const [editInputValue, setEditInputValue] = useState("");
+  const [editInputValue, setEditInputValue] = useState('');
   const inputRef = useRef(null);
   const editInputRef = useRef(null);
   useEffect(() => {
@@ -46,7 +46,7 @@ const IngredientList = () => {
     }
 
     setInputVisible(false);
-    setInputValue("");
+    setInputValue('');
   };
 
   const handleEditInputChange = (e) => {
@@ -58,7 +58,7 @@ const IngredientList = () => {
     newIngredient[editInputIndex] = editInputValue;
     setIngredientItem(newIngredient);
     setEditInputIndex(-1);
-    setInputValue("");
+    setInputValue('');
     console.log(newIngredient);
   };
 

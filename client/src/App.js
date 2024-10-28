@@ -1,45 +1,45 @@
-import React, { useState } from "react";
-import "antd/dist/antd.css";
+import React, { useState } from 'react';
+import 'antd/dist/reset.css';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Redirect,
-} from "react-router-dom";
+} from 'react-router-dom';
 import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
   createHttpLink,
-} from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 
-import Auth from "./utils/auth";
+import Auth from './utils/auth';
 
-import Home from "./pages/Home";
-import Nav from "./components/Nav";
-import Footer from "./components/Footer"
-import Profile from "./pages/Profile";
-import NoMatch from "./pages/NoMatch";
-import LoginForm from "./pages/LoginForm";
-import SignupForm from "./pages/SignupForm";
-import SingleRecipe from "./pages/SingleRecipe";
-import Search from "./pages/Search";
-import Results from "./pages/Results";
-import Donate from "./pages/Donate";
-import Success from "./pages/Success";
-import PostRecipeForm from "./pages/RecipeForm";
+import Home from './pages/Home';
+import Nav from './components/Nav';
+import Footer from './components/Footer';
+import Profile from './pages/Profile';
+import NoMatch from './pages/NoMatch';
+import LoginForm from './pages/LoginForm';
+import SignupForm from './pages/SignupForm';
+import SingleRecipe from './pages/SingleRecipe';
+import Search from './pages/Search';
+import Results from './pages/Results';
+import Donate from './pages/Donate';
+import Success from './pages/Success';
+import PostRecipeForm from './pages/RecipeForm';
 
 const httpLink = createHttpLink({
-  uri: "/graphql",
+  uri: '/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem("id_token");
+  const token = localStorage.getItem('id_token');
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
+      authorization: token ? `Bearer ${token}` : '',
     },
   };
 });
@@ -51,15 +51,15 @@ const client = new ApolloClient({
 
 const styles = {
   body: {
-    backgroundColor: "#04293A",
-    minHeight: "100vh",
-    padding: "1vh 0",
+    backgroundColor: '#04293A',
+    minHeight: '100vh',
+    padding: '1vh 0',
   },
 };
 
 function App() {
-  const [theme, changeTheme] = useState("dark");
-  document.title = "myrecipes";
+  const [theme, changeTheme] = useState('dark');
+  document.title = 'myrecipes';
 
   return (
     <ApolloProvider client={client}>
@@ -67,25 +67,19 @@ function App() {
         <Nav theme={theme} />
         <div style={styles.body}>
           <Routes>
-            <Route
-              path="/"
-              element={<Home />}
-            />
-            <Route
-              path="/user/:userId"
-              element={<Profile />}
-            />
-            <Route
-              path="/me"
-              element={<Profile />}
-            />
+            <Route path="/" element={<Home />} />
+            <Route path="/user/:userId" element={<Profile />} />
+            <Route path="/me" element={<Profile />} />
             <Route
               path="/recipe/:recipeId"
               element={Auth.loggedIn() ? <SingleRecipe /> : <LoginForm />}
             />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/signup" element={<SignupForm />} />
-            <Route path="/recipeform" element={Auth.loggedIn() ? <PostRecipeForm /> : <LoginForm />} />
+            <Route
+              path="/recipeform"
+              element={Auth.loggedIn() ? <PostRecipeForm /> : <LoginForm />}
+            />
             <Route
               path="/search"
               element={Auth.loggedIn() ? <Search /> : <LoginForm />}
